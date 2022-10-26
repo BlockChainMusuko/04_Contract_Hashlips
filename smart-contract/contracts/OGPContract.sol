@@ -126,16 +126,22 @@ contract OGPContract is ERC721AQueryable, Ownable, ReentrancyGuard {
   }
 
   function withdraw() public onlyOwner nonReentrant {
-    // This will pay HashLips Lab Team 5% of the initial sale.
-    // By leaving the following lines as they are you will contribute to the
-    // development of tools like this and many others.
+    // This will pay the team 
     // =============================================================================
-    (bool hs, ) = payable(0x146FB9c3b2C13BA88c6945A759EbFa95127486F4).call{value: address(this).balance * 5 / 100}('');
+    // Artist wallet
+    (bool hs, ) = payable(0xBc3Acd5a18570992012A4a74c885E4F3B276470d).call{value: address(this).balance * 33 / 100}('');
     require(hs);
     // =============================================================================
-
+    // Marketing wallet
+    (bool ms, ) = payable(0xB9f86b0F850eB1DD2F7d6122c40ADDD01002a710).call{value: address(this).balance * 33 / 100}('');
+    require(ms);
+    // =============================================================================
+    // Developer wallet
+    (bool ds, ) = payable(0x878A8Ec3aD693E30a65E868c2480E39eb70B932c).call{value: address(this).balance * 33 / 100}('');
+    require(ds);
+    // =============================================================================
     // This will transfer the remaining contract balance to the owner.
-    // Do not remove this otherwise you will not be able to withdraw the funds.
+    // Do not remove this
     // =============================================================================
     (bool os, ) = payable(owner()).call{value: address(this).balance}('');
     require(os);
